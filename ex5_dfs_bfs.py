@@ -1,11 +1,19 @@
 
 class Graph(object):
+	"""Class for unweighted undirected graph
+	where key is a vertex
+	and values are neighbouring vertices"""
+	
 	def __init__(self):
+		"""Instantiation method,
+		initializes graph as a dictionary"""
+		
 		self.graph = {}
 		
 	def add_vertex(self,vertex):
 		"""Adding a vertex
 		as a key in dictionary"""
+		
 		if vertex not in self.graph:
 			self.graph[vertex] = []
 		else:
@@ -16,16 +24,25 @@ class Graph(object):
 		first vertex is key and second is value
 		and vice-versa
 		to connect vertices in a graph"""
+		
 		self.graph[firstVertex].append(secondVertex)
 		self.graph[secondVertex].append(firstVertex)
 			
 	def __repr__(self):
 		"""returns the graph"""
+		
 		return str(self.graph)
 								
 					
 	def depth_first_search(self,startNode):
-		stack = []
+		"""Visits all vertices in graph,
+		follows the first edge of current vertex
+		to reach next unvisited vertex.
+		Vissited vertices are stored in visited list
+		until all vertices are visited
+		and the path is printed to txt file"""
+		
+		stack = [] # list as a stack
 		visited = []
 		stack.append(startNode)
 		while stack != []:
@@ -39,7 +56,7 @@ class Graph(object):
 						print("The specified node does not exists in the graph!")
 						print("Cannot perform depth first search.")
 						visited = None
-		f = open("dfs_bfs.txt","w")
+		f = open("ex5_dfs_bfs.txt","w")
 		f.write("This is the dfs path: " + str(visited) + "\n")
 		f.close()
 		
@@ -58,7 +75,7 @@ class Graph(object):
 						print("The specified node does not exists in the graph!")
 						print("Cannot perform breadth first search.")
 						visited = None
-		f = open("dfs_bfs.txt","a")
+		f = open("ex5_dfs_bfs.txt","a")
 		f.write("This is the bfs path: " + str(visited))
 		f.close()
 
