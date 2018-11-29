@@ -1,5 +1,20 @@
+"""Class BinTreeNode, __init__ method, 
+	functions tree_insert and in_order
+	written by Diana Hintea.
+	Availability: http://moodle.coventry.ac.uk"""
+
+import sys
+
 class BinTreeNode(object):
+	"""A class to hold a node in a binary search tree"""
+	
 	def __init__(self, value, parent=None):
+		"""Instantiation method
+		takes value which we provide for the node
+		and assigns left and right children
+		of the node to None
+		and keeps track of childs parent"""
+		
 		self.value=value
 		self.parent=parent
 		self.left=None
@@ -11,6 +26,7 @@ def tree_insert( tree, item):
 	"""insert value into a tree
 	tree is a node
 	item is value being inserted"""
+	
 	if tree==None:
 		tree=BinTreeNode(item)
 	else:
@@ -30,18 +46,26 @@ def tree_search(tree, target):
 	"""searches the value
 	tree is a node
 	target is a value we search for"""
-	r = tree
-	while r != None:
-		if r.value == target:
-			return r
-		elif r.value > target:
-			r = r.left
-		else:
-			r = r.right
-	return False
+	try:
+		r = tree
+		while r != None:
+			if r.value == target:
+				return r
+			elif r.value > target:
+				r = r.left
+			else:
+				r = r.right
+		return False
+	except TypeError:
+		print("Please provide a number, not a string")
 
 
 def in_order(tree):
+	"""Travels tree in order:
+	for each node displays the left hand side,
+	the the node itself,
+	then the right hand side"""
+	
 	if(tree.left!=None):
 		in_order(tree.left)
 	print (tree.value)
@@ -50,6 +74,8 @@ def in_order(tree):
 		
 		
 def count_children(n):
+	"""Counts children of node"""
+	
 	count = 0
 	if n.left != None:
 		count = count+1
@@ -58,14 +84,24 @@ def count_children(n):
 	return count
 
 def find_min(node):
-	"""find minimum value in right subtree"""
+	"""Finds minimum value in right subtree"""
+	
 	while node.left != None:
 		node = node.left
 	return node
 
-def delete_node(value):
+def delete_node(t, value):
+	"""Function to delete a node from the tree.
+	If no children - just deletes node,
+	if 1 child - set child's parent to the node
+	above the node to be deleted.
+	If 2 children - we call find_min function
+	to find minimum value node from right subtree
+	and replacing deleted node with that value.
+	Then we delete the leaf node which has value we copied."""
+	
 	node = tree_search(t, value)
-	if node:
+	if node: # if node exists
 		parent = node.parent
 		childrenNr = count_children(node)
 		# case of 0 children:
@@ -94,16 +130,10 @@ def delete_node(value):
 		else:
 			minimum = find_min(node.right)
 			node.value = minimum.value
-			parent = minimum.parent
-			if parent.left == minimum:
-				parent.left = None
-			else:
-				parent.right = None
-			
-
-				
+			delete_node(node.right, minimum.value)				
 	else:
 		print("Node doesn't exist")
+		sys.exit()
 			
 		
 
@@ -128,5 +158,5 @@ tree_insert(t,25)
 tree_insert(t,35)
 tree_insert(t,31)
 
-delete_node(70)
+delete_node(t, 31)
 in_order(t)
