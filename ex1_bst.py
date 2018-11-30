@@ -50,17 +50,20 @@ def tree_insert( tree, value):
 def tree_search(tree, target):
 	"""Finding a word
 	target is a word we want to find"""
-
-	r = tree
-	while r != None:
-		print(r.value) # to print the path to the word we are looking for
-		if r.value == target:
-			return "Yes"
-		elif r.value > target:
-			r = r.left
-		else:
-			r = r.right
-	return "No"
+	
+	try:
+		r = tree
+		while r != None:
+			print(r.value) # to print the path to the word we are looking for
+			if r.value == target:
+				return "Yes"
+			elif r.value > target:
+				r = r.left
+			else:
+				r = r.right
+		return "No"
+	except TypeError:
+		print("Please specify a word, not a number.")
 
 
 def pre_order(tree):
