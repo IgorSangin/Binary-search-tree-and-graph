@@ -1,4 +1,6 @@
-# Igor-Sangin
+# Binary search tree and graph
+
+Repository moved from Coventry University GitHub account.  
 
 Coursework for 210CT module.  
 Second year, Computing BSc.  
